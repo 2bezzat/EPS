@@ -20,5 +20,7 @@ Route::get('/',function(){
 	return view('home');
 });
 
+Route::get('/add_user_to_account','userController@addUserToAccount');
+Route::post('/add_user_to_account','userController@storeUserToAccount');
 Route::resource('/users','userController');
 Route::resource('/accounts','accountController');

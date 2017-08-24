@@ -24,8 +24,8 @@ class accountController extends Controller
 
 	public function show($id)
 	{
-		$Account = Account::findOrFail($id);
-		return $Account;
+		$account = Account::findOrFail($id);
+		return view('accounts.account',compact('account'));
 	}
 
 	public function  store(AccountRequest $request)

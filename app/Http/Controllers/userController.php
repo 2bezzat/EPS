@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Request;
 use App\User;
+use App\Account;
 use Validator;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\AssignUserToAccountRequest;
+use DB;
 
 class userController extends Controller
 {
@@ -29,7 +32,7 @@ class userController extends Controller
 	public function show($id)
 	{
 		$user = User::findOrFail($id);
-		return $user;
+		return view('users.user',compact('user'));
 	}
 
 	public function  store(UserRequest $request)
@@ -63,12 +66,27 @@ class userController extends Controller
         if($action == 'edit'){
         	$user = User::find($id);
         }
-
         $user->name  	= $req['name'];
         $user->email 	= $req['email'];
         $user->password = bcrypt($req['password']);
         $user->type 	= 'user';
         $user->save();
+	}
 
+	public function addUserToAccount()
+	{
+		$users = User::pluck('name', 'id');
+		$accounts = Account::pluck('type','id');
+		return view('users.addUserToAccount',compact('users','accounts'));
+	}
+
+	public function storeUserToAccount(AssignUserToAccountRequest $request)
+	{
+		$req  = Request::all();
+		DB::table('users_account_types')->insert([
+			'user_id' => $req['user'],
+			'account_id' => $req['account'],
+		]);
+		return redirect(action('userController@index'));
 	}
 }
