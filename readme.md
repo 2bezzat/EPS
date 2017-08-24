@@ -1,7 +1,3 @@
-@extends('template')
-
-@section('main')
-
 <h1>Welcome to the EPS TASK</h1>
 <h3>Intro:</h3>
 
@@ -53,4 +49,3 @@
 		</ul>
 	</li>
 </ul>
-@stop
