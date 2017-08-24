@@ -45,7 +45,7 @@ class userController extends Controller
 
 	}
 
-	public function update($id)
+	public function update(UserRequest $request, $id)
 	{
 		$this->createEdit('edit', $id);
 		return redirect(action('userController@index'));
